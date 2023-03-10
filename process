@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# convert the cover to the correct size
+cover='cover.jpg'
+sips -Z 120 $cover
+
+processed_directory="$HOME/Music/processed"
+
+mv "`pwd`" /Users/paulplew/music/processed

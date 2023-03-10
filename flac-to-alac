@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e 
+set -u
+
+my_file=$1
+my_new="$(echo $(dirname "$my_file")/$(basename "$my_file" .flac).m4a)"
+echo "$my_file"
+ffmpeg -y -i "$my_file" -c:a alac -c:v copy "$my_new"

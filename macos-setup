@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# install from Homebrew
+brew install neovim
+brew install tmux
+brew install tig
+brew install tmux
+brew install ffmpeg
+brew install cowsay
+brew install curl
+brew install koekeishiya/formulae/yabai
+brew install koekeishiya/formulae/skhd
+brew install git
+
+# install pyenv
+brew install pyenv 
+brew install pyenv-virtualenv
+pyenv install 3.11.2
+pyenv install 2.7.18
+pyenv virtualenv 3.11.2 shell3
+pyenv virtualenv 2.7.18 shell2
+pyenv global shell3 shell2
+
+
+# install tidal-dl
+pip3 install tidal-dl --upgrade
+
+## write defaults
+# Make key repeats rapid!!
+defaults write -g InitialKeyRepeat -int 12
+defaults write -g KeyRepeat -int 1
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Fully expand the save prompt by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+# Sleep on a slightly long power button press
+defaults write com.apple.loginwindow PowerButtonSleepsSyste -bool yes
+
+# Don't put a DS store on a network drive
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Empty Trash securely by default
+defaults write com.apple.finder EmptyTrashSecurely -bool true
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
+
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
+
+# Setup .dotfiles
+git clone git@github.com:paulplew/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles && cp -r .* * ~/
+
+# Setup oh my zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+echo "Done! Please restart your machine to apply all changes."
+

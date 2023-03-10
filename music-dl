@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -e 
+
+download_list="$HOME/.scripts/lib/links_to_download"
+download_path="$HOME/Music/unprocessed"
+
+
+while :; do
+    case $1 in
+        -c|--clear) ## include WORDS words in the password
+            echo "" > $download_list
+            shift ;;
+        -a|--add) ## insert NUMBERS random numbers in the password
+            _=$1
+            dl_link=$2
+            echo "Adding $dl_link to download list"
+            echo $dl_link >> $download_list
+	    	shift ;;
+        -r|--run) ## insert SYMBOLS random symbols in the password
+            for ln in `cat $download_list`; do
+                echo "downloading $ln"
+                tidal-dl -l "$ln" -o "$download_path"
+            done
+	    	shift ;;
+        --) break ;; ## End of all options.
+        -?*) ## if an incorrect option is chosen
+            printf 'WARNING: Unknown option: %s\n' "$1" >&2
+           	shift ;;
+        *) break # Default case: No more options, so break out of the loop.
+    esac
+    shift
+done

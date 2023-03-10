@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+#
+# ccc
+#
+
+circle='\xe2\xac\xa4'
+
+for (( i = 0; i < 16; i++ ))
+do
+  for ((k = 0; k < 16; k++ ))
+  do
+      printf "\033[38;5;$(( k + ( 16 * i ) ))m%b \033[0m" $circle
+      # printf "%s\t" "$(( k + ( 16 * i ) ))"
+  done
+  printf '\n'
+done
